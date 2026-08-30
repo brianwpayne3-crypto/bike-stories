@@ -73,6 +73,26 @@ The quality bar is:
 
 The user should not have to polish generic AI prose.
 
+## Story repeating: recover rather than manufacture
+
+A useful emerging description of the AI task is **story repeating** rather than conventional story writing.
+
+The story already happened and belongs to the owner. The AI should recover the story latent in the supplied photographs, documents, chronology, and messy owner input, then repeat it back coherently without manufacturing a more dramatic or meaningful narrative than the evidence supports.
+
+This creates a central research question:
+
+> **How good is AI at discovering the story that is already embedded in a pile of real artifacts plus some owner input?**
+
+The system should attempt to understand narrative relationships among artifacts, not merely rank them by photographic quality or arrange them attractively. For example, an image may function as setup/before, historical context, process/transition, turning point, result/after, or payoff. These are useful internal editorial roles, not formal story types that users must choose.
+
+A key Voyager finding is that **composition selection and narrative sequencing are separate problems**. A good-looking layout can still tell the story poorly if it reveals the visual payoff too early or fails to recognize a before/process/after relationship.
+
+Working rule:
+
+> **Infer the narrative role of artifacts when the evidence is strong. When that role materially affects the story and is uncertain, ask rather than silently inventing it.**
+
+This applies the product's grounding rules to visual sequencing as well as prose.
+
 ## Clarification behavior
 
 Do not optimize for a fixed number of questions. Optimize for closing only the information gaps necessary to tell a grounded, worthwhile story.
@@ -107,6 +127,18 @@ Default rule:
 > **Use the owner's supplied material. Do not introduce outside imagery unless explicitly requested or a future feature clearly calls for sourced external context.**
 
 Provenance matters because a visually similar outside image can falsely imply that it depicts the user's bicycle or event.
+
+## Let the material determine the medium
+
+BikeStories should not assume that every worthwhile story needs a conventional written narrative. The relative importance of words, photographs, documents, and other artifacts should emerge from the supplied material.
+
+> **Understand what story is actually present, understand which supplied artifacts carry that story, and construct the lightest combination of words and visuals that tells it well.**
+
+Story quality and artifact quality are independent variables. A mundane event with exceptional photographs may make an excellent visual BikeStory. A genuinely interesting story with weak or sparse photographs may need to be primarily words. A story with strong narrative and strong artifacts may use both heavily.
+
+The AI should therefore avoid padding visually strong stories with unnecessary prose merely because the output is called a story. A bicycle build documented with excellent process photographs may be mostly visual, with only enough text to establish progression, decisions, and context.
+
+A future contrasting experiment should test this directly using a visually rich bicycle build — for example, a first electronic-shifting build — to see whether the system recognizes a **visually dominant process story** and resists over-writing it.
 
 ## Timeline decision for v0
 
@@ -149,7 +181,9 @@ Do not jump into application development yet. First use controlled experiments w
 - clarification behavior;
 - grounding rules;
 - voice preservation;
+- narrative-role inference and sequencing;
 - visual composition;
+- the appropriate balance of words and artifacts;
 - what constitutes “good enough” without user polishing.
 
 The first reference case is `experiments/voyager-001/`.
