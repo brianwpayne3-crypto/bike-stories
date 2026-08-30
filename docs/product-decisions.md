@@ -12,31 +12,63 @@ Useful framing:
 
 > People have profiles. Bikes have biographies.
 
-The physical bicycle provides continuity across stories over time, but the **story is the atomic unit**. Do not begin by making the user create empty bike records or populate a garage.
+The physical bicycle provides continuity across memories and stories over time.
+
+An earlier product decision said **the story is the atomic unit**. Voyager research has superseded that assumption:
+
+> **The memory is the atomic unit of capture. Stories emerge from one or more memories.**
+
+Do not begin by making the user create empty bike records, populate a garage, or decide what kind of finished story they are creating.
+
+## Core product hierarchy
+
+The emerging conceptual hierarchy is:
+
+> **Artifacts → Memories → Stories → Chapters → Life of a Bike**
+
+These levels should be derived from the material rather than imposed as organizational work on the owner.
+
+- **Artifacts** are source evidence: photographs, documents, receipts, screenshots, links, ride data, notes, voice input, etc.
+- **Memories** are the atomic captured units: a pile of relevant artifacts plus whatever the owner remembers or wants to say at that moment. A memory can be incomplete, unresolved, tiny, mundane, or still in progress.
+- **Stories** are coherent narratives that emerge when one memory is sufficient on its own or when several related memories together reveal a worthwhile story.
+- **Chapters** may emerge when multiple stories form a larger period, theme, project, relationship, or arc in the bicycle's life.
+- **Life of a Bike** is the evolving long-form biography that can eventually be synthesized from those chapters, stories, and memories while retaining provenance back to the original evidence.
+
+There is no requirement that every memory become a story, every story become a chapter, or every bicycle eventually become a book-length biography. The hierarchy should emerge only where the accumulated material supports it.
+
+A single strong memory can become a story immediately. “Story” therefore does not imply a minimum number of memories.
 
 ## Core problem
 
-The main competitor in v0 is **doing nothing**. Photos remain in the camera roll, notes and links disappear, and the story never gets told because organizing, writing, captioning, laying out, and publishing it is too much work.
+The main competitor in v0 is **doing nothing**. Photos remain in the camera roll, notes and links disappear, and potentially meaningful memories never become stories because organizing, writing, captioning, laying out, and publishing is too much work.
 
-Success is therefore not perfect documentation. A useful success question is:
+The immediate capture promise can therefore be simpler than “write your bike story”:
 
-> Did a worthwhile story exist afterward that otherwise probably would not have existed?
+> **Don't write the story. Just save the memory.**
+
+Success at capture time is not perfect documentation or a finished narrative. It is preserving something that otherwise probably would have disappeared.
+
+Over time, another success question becomes:
+
+> **Can BikeStories recognize when accumulated memories contain a story worth telling?**
 
 Completeness is not the initial goal. Preservation is.
 
 ## Emerging v0 interaction
 
-At its simplest:
+At capture time:
 
-> **Stuff → Story**
+> **Stuff + ramble → Memory**
 
-More explicitly:
+Over time:
 
-> **Dump assets + ramble → AI evaluates what is known → ask one high-value clarification if needed → reevaluate after every answer → construct a grounded visual draft → optional lightweight correction/enrichment → save.**
+> **Memories → discovered Stories → possible Chapters → evolving Life of a Bike**
 
-Input can be messy: photos, screenshots, notes, dictation, links, documents, receipts, PDFs, build lists, etc. The user should not have to organize or classify it first.
+Input can be messy: photos, screenshots, notes, dictation, links, documents, receipts, PDFs, build lists, etc. The user should not have to organize or classify it first, and should not need to know what larger story the material may eventually belong to.
 
-The dump should be treated as a **candidate evidence pile**, not as a declaration that every supplied artifact belongs in the published story. A realistic user request is closer to “here is a pile of stuff I think might help; make a story out of it” than “here are the ten correctly selected and sequenced assets for this story.”
+The dump should be treated as a **candidate evidence pile**, not as a declaration that every supplied artifact belongs in a published story. A realistic user interaction is closer to “here is a pile of stuff I think might help, plus what I remember” than “here are the correctly selected and sequenced assets for a finished story.”
+
+A memory should be useful even if no coherent story can yet be constructed from it.
 
 ## AI role: editor, not author
 
@@ -54,10 +86,14 @@ The AI should be comfortable:
 - grouping related assets;
 - identifying supported chronology and structure;
 - extracting reliable details from supplied material;
-- turning rambling input into readable prose;
+- cleaning up a captured memory without changing its meaning;
+- recognizing relationships among memories;
+- identifying when memories form a coherent candidate story;
+- turning rambling input into readable prose when appropriate;
 - removing repetition;
-- proposing title and layout;
+- proposing title and layout for stories;
 - selecting useful image groupings and placements;
+- recognizing larger relationships among stories over time;
 - revising conversationally after user feedback.
 
 It should be conservative about inventing:
@@ -79,25 +115,23 @@ The user should not have to polish generic AI prose.
 
 A useful emerging description of the AI task is **story repeating** rather than conventional story writing.
 
-The story already happened and belongs to the owner. The AI should recover the story latent in the supplied photographs, documents, chronology, and messy owner input, then repeat it back coherently without manufacturing a more dramatic or meaningful narrative than the evidence supports.
+The events already happened and belong to the owner. The AI should recover stories latent in supplied artifacts and accumulated memories, then repeat them back coherently without manufacturing a more dramatic or meaningful narrative than the evidence supports.
 
 This creates a central research question:
 
-> **How good is AI at discovering the story that is already embedded in a pile of real artifacts plus some owner input?**
+> **How good is AI at discovering stories that are already embedded across a pile of real artifacts, memories, and owner input?**
 
-The system should attempt to understand narrative relationships among artifacts, not merely rank them by photographic quality or arrange them attractively. For example, an image may function as setup/before, historical context, process/transition, turning point, result/after, or payoff. These are useful internal editorial roles, not formal story types that users must choose.
+The system should attempt to understand narrative relationships among artifacts and memories, not merely rank photographs by quality or arrange them attractively. An artifact or memory may eventually function as setup/before, historical context, process/transition, turning point, result/after, payoff, or something that does not belong in a particular story at all. These are useful internal editorial roles, not formal types the user must choose.
 
-A key Voyager finding is that **composition selection and narrative sequencing are separate problems**. A good-looking layout can still tell the story poorly if it reveals the visual payoff too early or fails to recognize a before/process/after relationship.
+A key Voyager finding is that **composition selection and narrative sequencing are separate problems**. A good-looking layout can still tell a story poorly if it reveals the visual payoff too early or fails to recognize a before/process/after relationship.
 
 Working rule:
 
-> **Infer the narrative role of artifacts when the evidence is strong. When that role materially affects the story and is uncertain, ask rather than silently inventing it.**
-
-This applies the product's grounding rules to visual sequencing as well as prose.
+> **Infer narrative relationships when the evidence is strong. When a relationship materially affects the story and is uncertain, ask rather than silently inventing it.**
 
 ## Artifact selection: the dump is not the edit
 
-Voyager Experiment 003 exposed another distinct editorial task: **deciding whether a supplied artifact belongs in the inferred story at all**.
+Voyager Experiment 003 exposed another distinct editorial task: **deciding whether a supplied artifact belongs in an inferred story at all**.
 
 A visually compelling photograph can be authentic and still be misleading in a particular narrative role. In Voyager, a riding photograph looked like a natural resolution in both blinded passes, but owner clarification later established that the ride occurred before some of the changes being discussed. If the story is specifically about those changes, presenting that photograph as the final result would imply a chronology the evidence does not support.
 
@@ -109,19 +143,21 @@ The system should be able to classify candidate artifacts as central, supporting
 
 Artifact roles are also **story-dependent rather than inherent**. The same riding photograph might be misleading as the payoff to a transformation story but highly relevant to a broader story about learning and riding the bike over time.
 
-A more complete internal pipeline is therefore:
+A more complete internal story-discovery pipeline is therefore:
 
-> **messy evidence pile → infer candidate story → infer chronology and artifact roles → identify conflicts/uncertainties → select the subset that actually supports this story → construct the visual narrative**
+> **memories + their evidence → infer candidate story → infer chronology and roles → identify conflicts/uncertainties → select the subset that actually supports this story → construct the visual narrative**
 
-The AI should not force every source artifact into the output merely because the user supplied it.
+The AI should not force every source artifact or memory into an output merely because the user supplied it.
 
 ## Clarification behavior
 
-Do not optimize for a fixed number of questions. Optimize for closing only the information gaps necessary to tell a grounded, worthwhile story.
+Do not optimize for a fixed number of questions. Optimize for closing only the information gaps necessary for the current task.
 
 > **Minimize information gaps, not question count.**
 
-Questions should be asked **one at a time**, never as a questionnaire the user must remember and answer in bulk.
+Capture should have an especially low burden. If enough exists to preserve a useful memory, the system should not interrogate the owner merely because a future polished story could be richer.
+
+When constructing a story, questions should be asked **one at a time**, never as a questionnaire the user must remember and answer in bulk.
 
 After each answer:
 1. absorb the answer;
@@ -130,17 +166,17 @@ After each answer:
 4. ask a simple follow-up only if the prior answer was too vague to be useful;
 5. stop as soon as enough grounded context exists.
 
-Information density matters. One long answer may close several gaps; short answers may require more exchanges. The number of questions also scales with the story: a tiny component-change story may need zero, while a large tour may need several.
+Information density matters. One long answer may close several gaps; short answers may require more exchanges. The number of questions also scales with the material.
 
-Do not keep interviewing merely to make a story marginally richer.
+Do not keep interviewing merely to make a memory or story marginally richer.
 
-## Supplied assets are first-class story content
+## Supplied assets are first-class content
 
 A major experiment failure was treating user-supplied images as context for prose and then inserting a generic internet bicycle image into the output.
 
 That is explicitly wrong.
 
-> **Story construction means constructing the visual narrative, not merely writing prose and attaching an album.**
+> **Story construction means constructing the visual narrative from the owner's evidence, not merely writing prose and attaching an album.**
 
 The finished artifact should interweave the owner's supplied photos/documents with narrative blocks. The AI should decide when one image should dominate, when several images belong together, when a document should sit beside a passage, and when text should stand alone.
 
@@ -154,7 +190,7 @@ Provenance matters because a visually similar outside image can falsely imply th
 
 BikeStories should not assume that every worthwhile story needs a conventional written narrative. The relative importance of words, photographs, documents, and other artifacts should emerge from the supplied material.
 
-> **Understand what story is actually present, understand which supplied artifacts carry that story, and construct the lightest combination of words and visuals that tells it well.**
+> **Understand what story is actually present, understand which supplied artifacts and memories carry that story, and construct the lightest combination of words and visuals that tells it well.**
 
 Story quality and artifact quality are independent variables. A mundane event with exceptional photographs may make an excellent visual BikeStory. A genuinely interesting story with weak or sparse photographs may need to be primarily words. A story with strong narrative and strong artifacts may use both heavily.
 
@@ -162,94 +198,124 @@ The AI should therefore avoid padding visually strong stories with unnecessary p
 
 A future contrasting experiment should test this directly using a visually rich bicycle build — for example, a first electronic-shifting build — to see whether the system recognizes a **visually dominant process story** and resists over-writing it.
 
-## Stories can be unfinished because bikes keep changing
+## Memories can be unfinished because bikes keep changing
 
-A BikeStory does not need to manufacture closure merely because the user has stopped adding material for now. A bike may still be in progress, a planned change may not have happened yet, or the most recent photograph may itself show an unfinished state.
+A memory does not need closure. It may record an unfinished project, a question, a temporary configuration, a plan, a ride that happened in the middle of a build, or simply what the owner knew and cared about at that moment.
 
-> **A BikeStory does not need to pretend the story is finished just because the user is done adding material today.**
+Voyager exposed the danger of forcing an incomplete memory into a finished-story shape. The most recent available photograph can still show an unfinished bicycle, while an older riding photograph may visually resemble an ending even though it predates later changes.
 
-The system should be comfortable preserving an unresolved or in-progress story rather than selecting an older image as a false payoff or writing a tidy conclusion unsupported by the bike's actual state.
+> **BikeStories should preserve an unfinished memory rather than manufacture a finished story.**
 
-This reinforces the biography model: the physical bicycle persists while stories accumulate around it. A later BikeStory may complete, extend, complicate, or change the meaning of an earlier one.
+A later memory may complete, extend, contradict, or change the meaning of an earlier one without making the earlier memory wrong. Each remains evidence of a point in the bicycle's life.
 
-> **New stories can complete, revise, or extend the meaning of earlier stories without rewriting their history.**
+## Stories emerge across memories
 
-The earlier story should remain a historical artifact representing what was known and happening at that point. BikeStories should not silently rewrite it simply because later events provide a cleaner ending.
+The system should not assume that the owner knows the story at capture time. Often they cannot know it yet.
 
-## Intelligence across stories: biography synthesis
+For example:
 
-The story remains the atomic unit, but the intelligence layer should eventually operate **across stories attached to the same bicycle**.
+> **Memory A:** bought a cheap old touring bike with its original paperwork  
+> **Memory B:** experimented with wheels and contact points  
+> **Memory C:** eventually finished the cockpit  
+> **Memory D:** rode a meaningful long ride
 
-Individual stories might document acquisition, an unfinished cockpit experiment, a later completed setup, a first century, a failure, another rebuild, or a trip. Over time, the system may recognize that these separate stories form a larger arc.
+Any one of these can be worth preserving independently. Later, AI may recognize that together they contain a stronger coherent story.
+
+This suggests a central intelligence behavior:
+
+> **Recognize when accumulated memories have become a story worth telling.**
+
+The system should propose or construct that higher-order story while retaining the underlying memories rather than replacing them.
+
+## Stories can become chapters; chapters can become a life of a bike
+
+The same emergence can continue above the story level.
+
+Several related stories may eventually form a chapter in the bicycle's life: an initial build period, racing years, touring years, a restoration, a change of owner, or another theme that becomes visible only with time. Several chapters may eventually support a long-form biography or “Life of a Bike.”
 
 Conceptually:
 
-> **Story 1 + Story 2 + Story 3 → evolving bike biography**
+> **Artifacts → Memories → Stories → Chapters → Life of a Bike**
 
-A higher-order biography can synthesize material across those stories while preserving each original story independently. This creates a distinction between:
-- **story-level truth:** what was known, happening, and worth preserving when that story was created;
-- **biography-level understanding:** what becomes visible only after later stories add more evidence and context.
+The important product behavior is that the owner should not have to design this hierarchy in advance. AI can discover and suggest higher-order structure as the evidence accumulates.
 
-Potential AI behavior includes recognizing that a later story resolves an earlier open thread, that a configuration changed between stories, that an earlier image should no longer be interpreted as the final state, or that several small stories together form a meaningful larger narrative.
+The hierarchy must also preserve provenance. A synthesized chapter or biography should remain traceable back through stories and memories to the original artifacts and owner input from which its claims were derived.
 
-This should not initially mean silently merging or rewriting stories. The safer product model is **persistent individual stories plus an evolving synthesized biography**.
+## Intelligence across time: biography synthesis
+
+The intelligence layer should eventually operate **across the complete history attached to the same physical bicycle**.
+
+This creates several levels of understanding:
+- **memory-level truth:** what was captured, known, happening, or being considered at a particular point;
+- **story-level understanding:** the coherent narrative that becomes visible across one or more memories;
+- **chapter-level understanding:** a larger arc visible across multiple stories;
+- **biography-level understanding:** the evolving life of the bicycle that becomes visible only after substantial history accumulates.
+
+Potential AI behavior includes recognizing that a later memory resolves an earlier open thread, that a configuration changed, that an earlier photograph was not actually a final state, that several memories form a story, or that several stories form a larger chapter.
+
+This should not initially mean silently merging or rewriting historical material. The safer model is **persistent source memories and stories plus evolving higher-order synthesis**.
 
 A future controlled experiment should provide two or more separate source dumps from different points in the same bicycle's life and test whether the AI can independently:
 - recognize that they concern the same evolving object;
+- determine whether each dump is best treated as a memory or already supports a story;
 - identify which earlier threads are extended or resolved;
-- distinguish conflicting or superseded states;
-- construct a larger narrative without erasing the integrity of the original stories.
+- distinguish conflicting, temporary, or superseded states;
+- recognize when several memories form a coherent story;
+- recognize when several stories form a larger arc;
+- construct higher-order narrative without erasing the integrity of the original captures.
 
 ## Timeline decision for v0
 
-Earlier thinking proposed ordering a bike's biography by the historical/event date contained inside each story. That has been superseded for the initial product.
+The earlier story-centric timeline assumption needs to be reconsidered in light of the memory model. The safest current rule is to preserve **capture/creation timestamps on memories as immutable provenance** rather than requiring the system to reconstruct a perfect historical chronology at capture time.
 
-Current decision:
+Dates contained within a memory may refer to earlier events and remain part of its content. Higher-order stories, chapters, and biographies can later derive historical sequencing where the evidence supports it.
 
-> **A bike's story stream is ordered by each BikeStory's creation timestamp.**
+v0 does not need to solve a perfect historical timeline before memories can be captured.
 
-Dates inside the story belong to the story's content and may refer to any point in the bicycle's life. A story created in 2027 could include a 1991 receipt and still appear in the stream as a 2027-created story.
+## Memory and story breadth
 
-A historical/event-date view may be derived later if real usage demonstrates value. v0 does not need to solve historical reconstruction or multiple timeline modes.
-
-## Story breadth
-
-“Story” is intentionally broad. It can be:
+A memory can be extremely small:
 - one photo and one sentence;
-- a small component change;
-- a build or restoration;
-- in-progress thinking about what to do next;
-- a ride or event;
-- a multi-week trip with many photos and narrative.
+- a component change;
+- a thought about what to try next;
+- an unfinished build update;
+- a ride;
+- a receipt or historical document plus a remembered detail.
 
-Avoid forcing formal story types in the MVP.
+A story can likewise vary dramatically in scale once enough coherent material exists: from a single strong memory to a build, restoration, event, trip, or longer arc assembled from multiple memories.
+
+Avoid forcing formal memory or story types in the MVP.
 
 Useful principle:
 
-> **A BikeStory can be as small as a moment or as large as an adventure. It can document what happened, what is happening, or what the owner is thinking about doing next.**
+> **Capture what the owner remembers now. Let larger stories emerge when the material supports them.**
 
-## Canonical story and sharing
+## Canonical home and sharing
 
-BikeStories should eventually be the canonical home for the story/biography. Instagram, blogs, forums/BBSs, and other channels can become derived publishing formats later.
+BikeStories should eventually be the canonical home for the bike's accumulated memories and the stories/chapters/biography derived from them. Instagram, blogs, forums/BBSs, and other channels can become derived publishing formats later.
 
-Sharing is important, but do not prematurely turn the product into “Instagram for bikes.” The persistent organizing idea is the bicycle and its accumulated stories.
+Sharing is important, but do not prematurely turn the product into “Instagram for bikes.” The persistent organizing idea is the physical bicycle and the history accumulating around it.
 
 ## Research before implementation
 
 Do not jump into application development yet. First use controlled experiments with frozen source datasets to understand:
-- minimum useful input;
-- clarification behavior;
+- minimum useful input for a memory;
+- whether capture and story-construction clarification should behave differently;
 - grounding rules;
 - voice preservation;
+- memory relationship detection;
+- when one or more memories actually support a coherent story;
 - narrative-role inference and sequencing;
 - artifact selection and exclusion;
 - chronology conflicts between visually plausible and actual sequences;
 - visual composition;
 - the appropriate balance of words and artifacts;
-- unfinished/open-ended stories;
-- cross-story synthesis into an evolving biography;
+- unfinished/open-ended memories;
+- cross-memory story discovery;
+- cross-story chapter discovery;
+- higher-order synthesis into an evolving biography;
 - what constitutes “good enough” without user polishing.
 
-The first reference case is `experiments/voyager-001/`.
+The Voyager experiments remain useful reference cases, but the original Voyager input should now be reconsidered as a **candidate memory**, not automatically as a finished story.
 
-After Voyager, add contrasting experiments so the product is not overfit to one medium-size acquisition/build story.
+After Voyager, add contrasting experiments so the product is not overfit to one medium-size acquisition/build memory.
