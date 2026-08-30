@@ -6,6 +6,16 @@
 
 This experiment extends the BikeStories research from curated or semi-curated image sets into a larger, naturally messy source collection.
 
+## Scope note
+
+Experiment 005 deliberately uses a **photo archive** because it is testing discovery at larger scale with a convenient, naturally noisy corpus. This does **not** make BikeStories a photo-only product.
+
+The broader product model remains:
+
+> **Artifacts → Memories → Stories → Chapters → Life of a Bike**
+
+Artifacts can include photographs, documents, receipts, spreadsheets/build sheets, notes, ride or route data, screenshots, audio recollections, and other owner-supplied or owner-authorized source material. Mixed-artifact understanding is a separate, currently untested research problem and should be evaluated in a future controlled experiment.
+
 ## Research question
 
 Can BikeStories discover useful bicycle memories from an uncurated photo archive without requiring the owner to manually select the right images first?
