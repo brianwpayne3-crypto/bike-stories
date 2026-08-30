@@ -36,6 +36,8 @@ More explicitly:
 
 Input can be messy: photos, screenshots, notes, dictation, links, documents, receipts, PDFs, build lists, etc. The user should not have to organize or classify it first.
 
+The dump should be treated as a **candidate evidence pile**, not as a declaration that every supplied artifact belongs in the published story. A realistic user request is closer to “here is a pile of stuff I think might help; make a story out of it” than “here are the ten correctly selected and sequenced assets for this story.”
+
 ## AI role: editor, not author
 
 The AI should do nearly all of the organizational/editorial work while avoiding invented personal meaning.
@@ -93,6 +95,26 @@ Working rule:
 
 This applies the product's grounding rules to visual sequencing as well as prose.
 
+## Artifact selection: the dump is not the edit
+
+Voyager Experiment 003 exposed another distinct editorial task: **deciding whether a supplied artifact belongs in the inferred story at all**.
+
+A visually compelling photograph can be authentic and still be misleading in a particular narrative role. In Voyager, a riding photograph looked like a natural resolution in both blinded passes, but owner clarification later established that the ride occurred before some of the changes being discussed. If the story is specifically about those changes, presenting that photograph as the final result would imply a chronology the evidence does not support.
+
+Therefore:
+
+> **Supplying an artifact means “consider this as evidence,” not “publish this in the story.”**
+
+The system should be able to classify candidate artifacts as central, supporting, uncertain, or unused. Leaving an image out is legitimate editorial work, not a failure to use the user's material.
+
+Artifact roles are also **story-dependent rather than inherent**. The same riding photograph might be misleading as the payoff to a transformation story but highly relevant to a broader story about learning and riding the bike over time.
+
+A more complete internal pipeline is therefore:
+
+> **messy evidence pile → infer candidate story → infer chronology and artifact roles → identify conflicts/uncertainties → select the subset that actually supports this story → construct the visual narrative**
+
+The AI should not force every source artifact into the output merely because the user supplied it.
+
 ## Clarification behavior
 
 Do not optimize for a fixed number of questions. Optimize for closing only the information gaps necessary to tell a grounded, worthwhile story.
@@ -140,6 +162,44 @@ The AI should therefore avoid padding visually strong stories with unnecessary p
 
 A future contrasting experiment should test this directly using a visually rich bicycle build — for example, a first electronic-shifting build — to see whether the system recognizes a **visually dominant process story** and resists over-writing it.
 
+## Stories can be unfinished because bikes keep changing
+
+A BikeStory does not need to manufacture closure merely because the user has stopped adding material for now. A bike may still be in progress, a planned change may not have happened yet, or the most recent photograph may itself show an unfinished state.
+
+> **A BikeStory does not need to pretend the story is finished just because the user is done adding material today.**
+
+The system should be comfortable preserving an unresolved or in-progress story rather than selecting an older image as a false payoff or writing a tidy conclusion unsupported by the bike's actual state.
+
+This reinforces the biography model: the physical bicycle persists while stories accumulate around it. A later BikeStory may complete, extend, complicate, or change the meaning of an earlier one.
+
+> **New stories can complete, revise, or extend the meaning of earlier stories without rewriting their history.**
+
+The earlier story should remain a historical artifact representing what was known and happening at that point. BikeStories should not silently rewrite it simply because later events provide a cleaner ending.
+
+## Intelligence across stories: biography synthesis
+
+The story remains the atomic unit, but the intelligence layer should eventually operate **across stories attached to the same bicycle**.
+
+Individual stories might document acquisition, an unfinished cockpit experiment, a later completed setup, a first century, a failure, another rebuild, or a trip. Over time, the system may recognize that these separate stories form a larger arc.
+
+Conceptually:
+
+> **Story 1 + Story 2 + Story 3 → evolving bike biography**
+
+A higher-order biography can synthesize material across those stories while preserving each original story independently. This creates a distinction between:
+- **story-level truth:** what was known, happening, and worth preserving when that story was created;
+- **biography-level understanding:** what becomes visible only after later stories add more evidence and context.
+
+Potential AI behavior includes recognizing that a later story resolves an earlier open thread, that a configuration changed between stories, that an earlier image should no longer be interpreted as the final state, or that several small stories together form a meaningful larger narrative.
+
+This should not initially mean silently merging or rewriting stories. The safer product model is **persistent individual stories plus an evolving synthesized biography**.
+
+A future controlled experiment should provide two or more separate source dumps from different points in the same bicycle's life and test whether the AI can independently:
+- recognize that they concern the same evolving object;
+- identify which earlier threads are extended or resolved;
+- distinguish conflicting or superseded states;
+- construct a larger narrative without erasing the integrity of the original stories.
+
 ## Timeline decision for v0
 
 Earlier thinking proposed ordering a bike's biography by the historical/event date contained inside each story. That has been superseded for the initial product.
@@ -182,8 +242,12 @@ Do not jump into application development yet. First use controlled experiments w
 - grounding rules;
 - voice preservation;
 - narrative-role inference and sequencing;
+- artifact selection and exclusion;
+- chronology conflicts between visually plausible and actual sequences;
 - visual composition;
 - the appropriate balance of words and artifacts;
+- unfinished/open-ended stories;
+- cross-story synthesis into an evolving biography;
 - what constitutes “good enough” without user polishing.
 
 The first reference case is `experiments/voyager-001/`.
