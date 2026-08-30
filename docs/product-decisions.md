@@ -318,6 +318,32 @@ BikeStories should eventually be the canonical home for the bike's accumulated m
 
 Sharing is important, but do not prematurely turn the product into “Instagram for bikes.” The persistent organizing idea is the physical bicycle and the history accumulating around it.
 
+## External collections as discovery sources
+
+BikeStories should not require a user to manually upload every candidate artifact before the system can look for memories or stories. A future input mode could point BikeStories at an **existing external collection** — for example a Flickr album, photo library, cloud folder, or another user-authorized archive — and let the AI search that collection for relevant evidence.
+
+This changes the input model from:
+
+> **user selects artifacts → uploads them → AI interprets them**
+
+into a possible discovery model:
+
+> **user points to a source → AI searches the source → identifies candidate memories/stories → imports only the artifacts that actually contribute**
+
+The external collection should be treated as a **source corpus, not automatically as BikeStories content**. Merely giving BikeStories access to an album should not imply that every photograph is imported, copied, published, or attached to a bicycle.
+
+A useful first version could be deliberately narrow: the user points BikeStories at one album or collection and asks it to find material related to a particular bicycle, memory, period, or possible story. BikeStories examines the available material, identifies the strongest relevant artifacts, and only then brings selected artifacts into the BikeStories provenance chain.
+
+This is consistent with the broader editorial principle that the dump is not the edit. In this case, the “dump” may remain outside BikeStories entirely until the system finds evidence worth preserving.
+
+Potential product principle:
+
+> **Search broadly; preserve selectively.**
+
+This may lower capture friction substantially for people who already have years of bicycle photographs scattered through existing services. Instead of requiring them to reconstruct their history manually, BikeStories could help rediscover memories already sitting in archives they have forgotten about.
+
+The product must preserve source provenance for anything selected from an external collection, including enough information to distinguish the original source from the BikeStories copy or reference. Questions about permissions, source longevity, whether BikeStories stores a durable copy, and what happens if the external source disappears are implementation concerns to research later rather than assumptions to bake into the concept now.
+
 ## When a dump does not contain a story
 
 BikeStories must be comfortable concluding that a set of authentic artifacts does **not yet contain a coherent story**. A user may upload many photographs of the same bicycle that are unrelated except for depicting the same physical object.
@@ -359,6 +385,9 @@ Do not jump into application development yet. First use controlled experiments w
 - behavior when a dump contains no coherent story;
 - confidence thresholds for preservation, association, and story formation;
 - whether AI can leave artifacts intentionally ungrouped without treating that as failure;
+- discovery from an external collection without importing everything;
+- whether AI can identify which external-source artifacts actually contribute to a memory or story;
+- provenance and source-reference requirements for externally discovered artifacts;
 - when one or more memories actually support a coherent story;
 - narrative-role inference and sequencing;
 - artifact selection and exclusion;
