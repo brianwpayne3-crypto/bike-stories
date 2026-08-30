@@ -54,6 +54,28 @@ Over time, another success question becomes:
 
 Completeness is not the initial goal. Preservation is.
 
+## Long-term preservation vision
+
+The Memory → Story → Chapter → Life of a Bike hierarchy matters for more than information architecture. It creates the possibility of preserving a person's lived experience around a physical object over years or decades with very little effort at any individual moment.
+
+A bicycle can function as a **persistent memory anchor**. Owners, places, rides, equipment, eras, friendships, family relationships, and life circumstances may change while the same physical bicycle provides continuity among otherwise disconnected memories.
+
+Over a long enough period, ordinary captures can become personally significant in ways the owner could not have predicted when they were recorded: a purchase photo, a receipt, a first ride, an unfinished repair, a trip, a crash, a race, a child riding the bike, a change of owner, or a final photograph years later.
+
+The product opportunity is therefore not merely “AI writes bicycle stories.” A deeper formulation is:
+
+> **Preserve small memories while they are easy to capture, then discover the larger stories that become visible only over time.**
+
+This also creates an intergenerational preservation possibility. A sufficiently rich Life of a Bike could eventually be shared with children, grandchildren, a future owner, or another person who did not experience those events directly. What is being passed forward is not just a catalog of the bicycle, but a grounded record of pieces of a person's life that happened around it.
+
+The AI must not manufacture nostalgia or significance after the fact. Its value is almost the opposite:
+
+> **Preserve enough authentic little pieces that the real meaning can survive.**
+
+Any later story, chapter, biography, or generational presentation should remain grounded in and traceable to the original memories and artifacts. Long-term synthesis increases the importance of provenance rather than reducing it.
+
+BikeStories should remain bicycle-centered while this is being explored. The broader pattern may eventually apply to other persistent physical objects, but expanding the product beyond bicycles is not a current requirement.
+
 ## Emerging v0 interaction
 
 At capture time:
