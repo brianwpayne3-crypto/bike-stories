@@ -318,6 +318,36 @@ BikeStories should eventually be the canonical home for the bike's accumulated m
 
 Sharing is important, but do not prematurely turn the product into “Instagram for bikes.” The persistent organizing idea is the physical bicycle and the history accumulating around it.
 
+## When a dump does not contain a story
+
+BikeStories must be comfortable concluding that a set of authentic artifacts does **not yet contain a coherent story**. A user may upload many photographs of the same bicycle that are unrelated except for depicting the same physical object.
+
+> **The same bike is a relationship, but it is not necessarily a story.**
+
+The system should separate three kinds of confidence:
+
+1. **Preservation confidence** — very little evidence is required to save an artifact or memory. Uncertain material should usually be preserved rather than rejected.
+2. **Relationship confidence** — stronger evidence is required to associate artifacts or memories, such as recognizing that several photographs depict the same bike or likely belong to the same ride, repair, or period.
+3. **Story confidence** — substantially stronger evidence is required before claiming that a collection of memories forms a coherent narrative.
+
+Conceptually:
+
+> **Bike identity ≠ memory relationship ≠ story relationship**
+
+When a random dump contains useful clusters, the AI may organize those clusters into candidate memories: several photos from one ride, several images of a component change, or a document and photograph that clearly belong together. Other artifacts may remain individually attached to the bicycle without being forced into a larger structure.
+
+The correct product response may sometimes be essentially:
+
+> **Saved. I don't think there's a story here yet.**
+
+That is a successful outcome, not a failure. A later memory may supply context that makes an older, previously isolated artifact important. The system should retain enough provenance and association information to recognize those relationships when they become visible later.
+
+Working principle:
+
+> **Preserve first. Organize when confident. Tell a story only when one is actually there.**
+
+This is a direct guardrail against BikeStories becoming a story-manufacturing machine.
+
 ## Research before implementation
 
 Do not jump into application development yet. First use controlled experiments with frozen source datasets to understand:
@@ -326,6 +356,9 @@ Do not jump into application development yet. First use controlled experiments w
 - grounding rules;
 - voice preservation;
 - memory relationship detection;
+- behavior when a dump contains no coherent story;
+- confidence thresholds for preservation, association, and story formation;
+- whether AI can leave artifacts intentionally ungrouped without treating that as failure;
 - when one or more memories actually support a coherent story;
 - narrative-role inference and sequencing;
 - artifact selection and exclusion;
