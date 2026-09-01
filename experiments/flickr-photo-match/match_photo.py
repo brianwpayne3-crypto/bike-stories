@@ -53,16 +53,28 @@ def original_dimensions(oauth, photo_id):
     return int(largest["width"]), int(largest["height"]), largest.get("label", "")
 
 
-def flickr_search(api_key, api_secret, access_token, access_secret, taken, width, height):
+def exif_summary(oauth, photo_id):
+    payload = api_call(oauth, "flickr.photos.getExif", photo_id=photo_id)
+    useful = []
+    for item in payload.get("photo", {}).get("exif", []):
+        label = item.get("label", "")
+        tag = item.get("tag", "")
+        raw = item.get("raw", {}).get("_content", "")
+        if any(word in (label + " " + tag).lower() for word in
+               ("file", "name", "date", "time", "image", "unique", "serial")):
+            useful.append(f"{label or tag}={raw}")
+    return useful
+
+
+def flickr_search(api_key, api_secret, access_token, access_secret, taken, width, height, inspect_exif):
     oauth = OAuth1Session(api_key, client_secret=api_secret,
                           resource_owner_key=access_token, resource_owner_secret=access_secret)
     start = taken - timedelta(minutes=2)
     end = taken + timedelta(minutes=2)
-    payload = api_call(
-        oauth, "flickr.photos.search", user_id="me",
-        min_taken_date=start.strftime("%Y-%m-%d %H:%M:%S"),
-        max_taken_date=end.strftime("%Y-%m-%d %H:%M:%S"),
-        extras="date_taken", per_page="100")
+    payload = api_call(oauth, "flickr.photos.search", user_id="me",
+                       min_taken_date=start.strftime("%Y-%m-%d %H:%M:%S"),
+                       max_taken_date=end.strftime("%Y-%m-%d %H:%M:%S"),
+                       extras="date_taken", per_page="100")
 
     photos = payload["photos"]["photo"]
     print(f"Flickr returned {len(photos)} photo(s) in the +/- 2 minute window.")
@@ -74,6 +86,18 @@ def flickr_search(api_key, api_secret, access_token, access_secret, taken, width
             exact.append(photo)
 
     print()
+    if inspect_exif and exact:
+        print("EXIF clues for dimension-matching candidates:")
+        for photo in exact:
+            clues = exif_summary(oauth, photo["id"])
+            print(f"  id={photo['id']}")
+            if clues:
+                for clue in clues:
+                    print(f"    {clue}")
+            else:
+                print("    (no filename/date/time/unique-id clues returned)")
+        print()
+
     if len(exact) == 1:
         print("MATCH: exactly one Flickr photo matched timestamp window + dimensions.")
         print(f"Flickr photo ID: {exact[0]['id']}")
@@ -93,6 +117,8 @@ def parse_args():
                         help="Apple Photos Date Taken as YYYY-MM-DD HH:MM:SS")
     parser.add_argument("--width", type=int, default=3024)
     parser.add_argument("--height", type=int, default=4032)
+    parser.add_argument("--inspect-exif", action="store_true",
+                        help="Print potentially identifying EXIF clues for matching candidates")
     return parser.parse_args()
 
 
@@ -115,7 +141,7 @@ def main():
         print("\nRun this script again after exporting those two values.")
         return 0
     return flickr_search(api_key, api_secret, access_token, access_secret,
-                         taken, args.width, args.height)
+                         taken, args.width, args.height, args.inspect_exif)
 
 
 if __name__ == "__main__":
