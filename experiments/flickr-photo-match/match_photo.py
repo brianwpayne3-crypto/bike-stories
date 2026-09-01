@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Authenticate to Flickr and test matching a private photo by capture metadata."""
 
+import argparse
 import os
 import sys
 import webbrowser
@@ -48,7 +49,6 @@ def api_call(oauth, method, **kwargs):
 def original_dimensions(oauth, photo_id):
     payload = api_call(oauth, "flickr.photos.getSizes", photo_id=photo_id)
     sizes = payload["sizes"]["size"]
-    # Flickr returns sizes smallest to largest; inspect the largest rendition.
     largest = max(sizes, key=lambda s: int(s.get("width", 0)) * int(s.get("height", 0)))
     return int(largest["width"]), int(largest["height"]), largest.get("label", "")
 
@@ -87,11 +87,24 @@ def flickr_search(api_key, api_secret, access_token, access_secret, taken, width
     return 3
 
 
+def parse_args():
+    parser = argparse.ArgumentParser(description="Match an Apple Photos capture to a private Flickr photo.")
+    parser.add_argument("--taken", default="2026-08-31 20:43:00",
+                        help="Apple Photos Date Taken as YYYY-MM-DD HH:MM:SS")
+    parser.add_argument("--width", type=int, default=3024)
+    parser.add_argument("--height", type=int, default=4032)
+    return parser.parse_args()
+
+
 def main():
+    args = parse_args()
     api_key = required_env("FLICKR_API_KEY")
     api_secret = required_env("FLICKR_API_SECRET")
-    taken = datetime(2026, 8, 31, 20, 43, 0)
-    width, height = 3024, 4032
+    try:
+        taken = datetime.strptime(args.taken, "%Y-%m-%d %H:%M:%S")
+    except ValueError:
+        sys.exit("--taken must use YYYY-MM-DD HH:MM:SS")
+
     access_token = os.getenv("FLICKR_ACCESS_TOKEN")
     access_secret = os.getenv("FLICKR_ACCESS_SECRET")
     if not access_token or not access_secret:
@@ -101,7 +114,8 @@ def main():
         print(f"export FLICKR_ACCESS_SECRET='{token['oauth_token_secret']}'")
         print("\nRun this script again after exporting those two values.")
         return 0
-    return flickr_search(api_key, api_secret, access_token, access_secret, taken, width, height)
+    return flickr_search(api_key, api_secret, access_token, access_secret,
+                         taken, args.width, args.height)
 
 
 if __name__ == "__main__":
