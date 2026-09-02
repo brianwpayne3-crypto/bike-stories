@@ -1,3 +1,16 @@
+import { put } from "@vercel/blob";
+import { randomUUID } from "node:crypto";
+
+function parseMetadata(metadata) {
+  if (typeof metadata !== "string") return metadata ?? null;
+
+  try {
+    return JSON.parse(metadata);
+  } catch {
+    return metadata;
+  }
+}
+
 export default async function handler(request, response) {
   if (request.method === "GET") {
     return response.status(200).json({
@@ -11,18 +24,38 @@ export default async function handler(request, response) {
     return response.status(405).json({ ok: false, error: "Method not allowed" });
   }
 
+  const receivedAt = new Date().toISOString();
+  const captureId = randomUUID();
+  const payload = request.body ?? {};
   const capture = {
-    receivedAt: new Date().toISOString(),
-    payload: request.body ?? null,
+    id: captureId,
+    receivedAt,
+    thought: payload.thought ?? null,
+    metadata: parseMetadata(payload.metadata),
+    flickrPhotoId: null,
+    rawPayload: payload,
   };
 
-  // Experiment #8: prove the Shortcut -> HTTP endpoint leg first.
-  // Vercel function logs are intentionally the temporary sink; durable
-  // persistence is the next decision after we verify the phone flow.
-  console.log("BIKE_STORIES_CAPTURE", JSON.stringify(capture));
+  const datePath = receivedAt.slice(0, 10).replaceAll("-", "/");
+  const pathname = `captures/${datePath}/${captureId}.json`;
+
+  const blob = await put(pathname, JSON.stringify(capture, null, 2), {
+    access: "private",
+    contentType: "application/json",
+    addRandomSuffix: false,
+  });
+
+  console.log(
+    "BIKE_STORIES_CAPTURE_PERSISTED",
+    JSON.stringify({ id: captureId, receivedAt, pathname }),
+  );
 
   return response.status(201).json({
     ok: true,
-    receivedAt: capture.receivedAt,
+    id: captureId,
+    receivedAt,
+    pathname,
+    persisted: true,
+    blobUrl: blob.url,
   });
 }
