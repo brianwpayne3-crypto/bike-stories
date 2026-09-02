@@ -1,4 +1,19 @@
-import { list } from "@vercel/blob";
+import { get, list } from "@vercel/blob";
+
+async function streamToText(stream) {
+  const reader = stream.getReader();
+  const decoder = new TextDecoder();
+  let text = "";
+
+  while (true) {
+    const { done, value } = await reader.read();
+    if (done) break;
+    text += decoder.decode(value, { stream: true });
+  }
+
+  text += decoder.decode();
+  return text;
+}
 
 export default async function handler(request, response) {
   if (request.method !== "GET") {
@@ -18,17 +33,12 @@ export default async function handler(request, response) {
     return response.status(404).json({ ok: false, error: "Capture not found" });
   }
 
-  const blobResponse = await fetch(blob.url, {
-    headers: process.env.BLOB_READ_WRITE_TOKEN
-      ? { Authorization: `Bearer ${process.env.BLOB_READ_WRITE_TOKEN}` }
-      : undefined,
-  });
-
-  if (!blobResponse.ok) {
-    console.error("BIKE_STORIES_CAPTURE_READ_FAILED", blobResponse.status, blob.pathname);
+  const result = await get(blob.pathname, { access: "private", useCache: false });
+  if (!result || result.statusCode !== 200) {
+    console.error("BIKE_STORIES_CAPTURE_READ_FAILED", result?.statusCode, blob.pathname);
     return response.status(502).json({ ok: false, error: "Could not read capture" });
   }
 
-  const capture = await blobResponse.json();
+  const capture = JSON.parse(await streamToText(result.stream));
   return response.status(200).json(capture);
 }
