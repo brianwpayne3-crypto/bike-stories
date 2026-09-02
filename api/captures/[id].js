@@ -15,6 +15,12 @@ async function streamToText(stream) {
   return text;
 }
 
+async function readJson(pathname) {
+  const result = await get(pathname, { access: "private", useCache: false });
+  if (!result || result.statusCode !== 200) return null;
+  return JSON.parse(await streamToText(result.stream));
+}
+
 export default async function handler(request, response) {
   if (request.method !== "GET") {
     response.setHeader("Allow", ["GET"]);
@@ -33,12 +39,18 @@ export default async function handler(request, response) {
     return response.status(404).json({ ok: false, error: "Capture not found" });
   }
 
-  const result = await get(blob.pathname, { access: "private", useCache: false });
-  if (!result || result.statusCode !== 200) {
-    console.error("BIKE_STORIES_CAPTURE_READ_FAILED", result?.statusCode, blob.pathname);
+  const capture = await readJson(blob.pathname);
+  if (!capture) {
+    console.error("BIKE_STORIES_CAPTURE_READ_FAILED", blob.pathname);
     return response.status(502).json({ ok: false, error: "Could not read capture" });
   }
 
-  const capture = JSON.parse(await streamToText(result.stream));
-  return response.status(200).json(capture);
+  const enrichmentPathname = `enrichments/flickr/${id}.json`;
+  const flickr = await readJson(enrichmentPathname).catch(() => null);
+
+  return response.status(200).json({
+    ...capture,
+    flickrPhotoId: flickr?.flickrPhotoId ?? capture.flickrPhotoId ?? null,
+    enrichments: { flickr: flickr ?? null },
+  });
 }
