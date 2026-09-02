@@ -1,4 +1,4 @@
-import { get, list } from "@vercel/blob";
+import { get } from "@vercel/blob";
 
 async function streamToText(stream) {
   const reader = stream.getReader();
@@ -25,7 +25,7 @@ export default async function handler(request, response) {
   }
 
   try {
-    const { id, index } = request.query;
+    const { id, index, format } = request.query;
     if (!id || Array.isArray(id)) return response.status(400).json({ ok: false, error: "Capture ID required" });
     const artifactIndex = Number(index);
     if (!Number.isInteger(artifactIndex) || artifactIndex < 0) return response.status(400).json({ ok: false, error: "Valid artifact index required" });
@@ -38,11 +38,17 @@ export default async function handler(request, response) {
 
     const image = await fetch(artifact.imageSource);
     if (!image.ok) throw new Error(`Flickr image fetch failed with HTTP ${image.status}`);
+    const contentType = image.headers.get("content-type") || "image/jpeg";
     const bytes = Buffer.from(await image.arrayBuffer());
-    response.setHeader("Content-Type", image.headers.get("content-type") || "image/jpeg");
-    response.setHeader("Content-Length", String(bytes.length));
     response.setHeader("Cache-Control", "private, max-age=300");
     response.setHeader("X-Robots-Tag", "noindex, nofollow");
+
+    if (format === "base64") {
+      return response.status(200).json({ ok: true, captureId: id, artifactIndex, flickrPhotoId: artifact.flickrPhotoId, contentType, byteLength: bytes.length, base64: bytes.toString("base64") });
+    }
+
+    response.setHeader("Content-Type", contentType);
+    response.setHeader("Content-Length", String(bytes.length));
     return response.status(200).send(bytes);
   } catch (error) {
     console.error("BIKE_STORIES_ARTIFACT_PROXY_FAILED", error);
