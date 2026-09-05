@@ -6,6 +6,13 @@ BikeStories is a product-research project exploring a simple idea:
 
 The current phase is **research and controlled product experimentation, not application implementation**.
 
+## Live phone-capture data
+
+Real submissions from the iPhone Shortcut are persisted in **private Vercel Blob**. When inspecting what has actually been sent from the phone, use the live capture store rather than conversation memory or experiment fixtures.
+
+- [`docs/working-with-live-data.md`](docs/working-with-live-data.md) — short future-session runbook.
+- [`docs/capture-data-operations.md`](docs/capture-data-operations.md) — storage, Vercel deployment, endpoints, known checkpoint, and troubleshooting details.
+
 ## Current product model
 
 The bicycle is the persistent anchor, but the **memory is the atomic unit of capture**.
